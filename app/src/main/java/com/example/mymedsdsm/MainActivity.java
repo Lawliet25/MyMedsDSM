@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
     void confirmDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("¿Borrar todos los datos?");
+        builder.setTitle("Borrar todos los datos");
         builder.setMessage("¿Está seguro de borrar todos los registros?");
         builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
             @Override
