@@ -83,7 +83,7 @@ public class UpdateActivity extends AppCompatActivity {
 
     void confirmDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("¿Borrar " + title + "?");
+        builder.setTitle("Borrar " + title);
         builder.setMessage("¿Está seguro de borrar " + title + "?");
         builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
             @Override
