@@ -22,9 +22,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     private Context context;
     private Activity activity;
-    private ArrayList med_id, med_title, med_doctor, med_cant;
+    private ArrayList med_id, med_title, med_doctor, med_cant, med_date;
 
-    CustomAdapter(Activity activity, Context context, ArrayList med_id, ArrayList med_title, ArrayList med_doctor,
+    CustomAdapter(Activity activity, Context context, ArrayList med_id, ArrayList med_title, ArrayList med_doctor, ArrayList med_date,
                   ArrayList med_cant){
         this.activity = activity;
         this.context = context;
@@ -32,6 +32,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         this.med_title = med_title;
         this.med_doctor = med_doctor;
         this.med_cant = med_cant;
+        this.med_date = med_date;
     }
 
     @NonNull
@@ -49,6 +50,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.med_title_txt.setText(String.valueOf(med_title.get(position)));
         holder.med_doctor_txt.setText(String.valueOf(med_doctor.get(position)));
         holder.med_cant_txt.setText(String.valueOf(med_cant.get(position)));
+        holder.med_date_txt.setText(String.valueOf(med_date.get(position)));
         //Recyclerview onClickListener
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +60,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 intent.putExtra("title", String.valueOf(med_title.get(position)));
                 intent.putExtra("doctor", String.valueOf(med_doctor.get(position)));
                 intent.putExtra("cant", String.valueOf(med_cant.get(position)));
+                intent.putExtra("date", String.valueOf(med_date.get(position)));
                 activity.startActivityForResult(intent, 1);
             }
         });
@@ -72,7 +75,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView med_id_txt, med_title_txt, med_doctor_txt, med_cant_txt;
+        TextView med_id_txt, med_title_txt, med_doctor_txt, med_cant_txt, med_date_txt;
         LinearLayout mainLayout;
 
         MyViewHolder(@NonNull View itemView) {
@@ -81,7 +84,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             med_title_txt = itemView.findViewById(R.id.med_title_txt);
             med_doctor_txt = itemView.findViewById(R.id.med_doctor_txt);
             med_cant_txt = itemView.findViewById(R.id.med_cant_txt);
+            med_date_txt = itemView.findViewById(R.id.med_date_txt);
             mainLayout = itemView.findViewById(R.id.mainLayout);
+
             //Animate Recyclerview
             Animation translate_anim = AnimationUtils.loadAnimation(context, R.anim.translate_anim);
             mainLayout.setAnimation(translate_anim);
