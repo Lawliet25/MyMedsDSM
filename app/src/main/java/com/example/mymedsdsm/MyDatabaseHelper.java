@@ -20,6 +20,8 @@ class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_DOCTOR = "med_doctor";
     private static final String COLUMN_CANT = "med_cant";
     private static final String COLUMN_TYPE = "med_type";
+    private static final String COLUMN_HOUR = "med_hour";
+    private static final String COLUMN_MIN = "med_min";
 
     MyDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -33,7 +35,9 @@ class MyDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_TITLE + " TEXT, " +
                 COLUMN_DOCTOR + " TEXT, " +
                 COLUMN_CANT + " INTEGER, " +
-                COLUMN_TYPE + " TEXT);";
+                COLUMN_TYPE + " TEXT, " +
+                COLUMN_HOUR + " INTEGER, " +
+                COLUMN_MIN + " INTEGER);";
         db.execSQL(query);
     }
     @Override
@@ -42,7 +46,7 @@ class MyDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    void addMed(String title, String doctor, int cant, String type){
+    void addMed(String title, String doctor, int cant, String type, int hour, int min){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -50,6 +54,8 @@ class MyDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_DOCTOR, doctor);
         cv.put(COLUMN_CANT, cant);
         cv.put(COLUMN_TYPE, type);
+        cv.put(COLUMN_HOUR, hour);
+        cv.put(COLUMN_MIN, min);
         long result = db.insert(TABLE_NAME,null, cv);
         if(result == -1){
             Toast.makeText(context, "Error al agregar", Toast.LENGTH_SHORT).show();
@@ -69,13 +75,15 @@ class MyDatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    void updateData(String row_id, String title, String doctor, String cant, String type){
+    void updateData(String row_id, String title, String doctor, String cant, String type, int hour, int min){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_TITLE, title);
         cv.put(COLUMN_DOCTOR, doctor);
         cv.put(COLUMN_CANT, cant);
         cv.put(COLUMN_TYPE, type);
+        cv.put(COLUMN_HOUR, hour);
+        cv.put(COLUMN_MIN, min);
 
         long result = db.update(TABLE_NAME, cv, "_id=?", new String[]{row_id});
         if(result == -1){

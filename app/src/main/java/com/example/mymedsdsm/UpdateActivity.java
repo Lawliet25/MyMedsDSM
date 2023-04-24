@@ -12,16 +12,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class UpdateActivity extends AppCompatActivity {
 
     EditText title_input, doctor_input, cant_input;
     Spinner type_input;
+
+    TimePicker hour_input;
     Button update_button, delete_button;
 
     String id, title, doctor, cant, type;
-
+    int hour, min;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +34,7 @@ public class UpdateActivity extends AppCompatActivity {
         doctor_input = findViewById(R.id.doctor_input2);
         cant_input = findViewById(R.id.cant_input2);
         type_input = findViewById(R.id.type_input2);
+        hour_input = findViewById(R.id.timePicker_input2);
         update_button = findViewById(R.id.update_button);
         delete_button = findViewById(R.id.delete_button);
 
@@ -52,7 +56,9 @@ public class UpdateActivity extends AppCompatActivity {
                 doctor = doctor_input.getText().toString().trim();
                 cant = cant_input.getText().toString().trim();
                 type = type_input.getSelectedItem().toString().trim();
-                myDB.updateData(id, title, doctor, cant, type);
+                hour = hour_input.getHour();
+                min = hour_input.getMinute();
+                myDB.updateData(id, title, doctor, cant, type, hour, min);
 
                 Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -70,18 +76,24 @@ public class UpdateActivity extends AppCompatActivity {
     void getAndSetIntentData(){
         if(getIntent().hasExtra("id") && getIntent().hasExtra("title") &&
                 getIntent().hasExtra("doctor") && getIntent().hasExtra("cant") &&
-                getIntent().hasExtra("type")){
+                getIntent().hasExtra("type")&&
+                getIntent().hasExtra("hour")&&
+                getIntent().hasExtra("min")){
             //Getting Data from Intent
             id = getIntent().getStringExtra("id");
             title = getIntent().getStringExtra("title");
             doctor = getIntent().getStringExtra("doctor");
             cant = getIntent().getStringExtra("cant");
             type = getIntent().getStringExtra("type");
+            hour = Integer.parseInt(getIntent().getStringExtra("hour"));
+            min = Integer.parseInt(getIntent().getStringExtra("min"));
             Log.d("myTag", type);
             //Setting Intent Data
             title_input.setText(title);
             doctor_input.setText(doctor);
             cant_input.setText(cant);
+            hour_input.setHour(hour);
+            hour_input.setMinute(min);
             if(type.equals("Tabletas o cápsulas")){
                 type_input.setSelection(1);
             } else if(type.equals("Bebible")){

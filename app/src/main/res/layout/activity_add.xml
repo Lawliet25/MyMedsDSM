@@ -7,11 +7,20 @@
     tools:context=".AddActivity"
     android:padding="30dp">
 
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
     <EditText
         android:id="@+id/title_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Nombre del medicamento"
         android:inputType="textPersonName"
@@ -54,7 +63,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/type_input" />
 
-    <Button
+            <TimePicker
+                android:id="@+id/timePicker_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cant_input" />
+
+            <Button
         android:id="@+id/add_button"
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -64,5 +81,8 @@
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cant_input" />
+        app:layout_constraintTop_toBottomOf="@+id/timePicker_input" />
+        </LinearLayout>
+
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

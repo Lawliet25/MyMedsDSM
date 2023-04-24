@@ -59,6 +59,14 @@
                 app:layout_constraintStart_toStartOf="@+id/med_doctor_txt"
                 app:layout_constraintTop_toBottomOf="@+id/med_doctor_txt" />
             <TextView
+                android:id="@+id/med_hour_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hora"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="@+id/med_type_txt"
+                app:layout_constraintTop_toBottomOf="@+id/med_type_txt" />
+            <TextView
                 android:id="@+id/med_id_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
