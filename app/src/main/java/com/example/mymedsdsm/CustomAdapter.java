@@ -22,16 +22,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     private Context context;
     private Activity activity;
-    private ArrayList med_id, med_title, med_doctor, med_cant;
+    private ArrayList med_id, med_title, med_doctor, med_cant, med_type;
 
     CustomAdapter(Activity activity, Context context, ArrayList med_id, ArrayList med_title, ArrayList med_doctor,
-                  ArrayList med_cant){
+                  ArrayList med_cant, ArrayList med_type){
         this.activity = activity;
         this.context = context;
         this.med_id = med_id;
         this.med_title = med_title;
         this.med_doctor = med_doctor;
         this.med_cant = med_cant;
+        this.med_type = med_type;
     }
 
     @NonNull
@@ -45,10 +46,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        holder.med_id_txt.setText(String.valueOf(med_id.get(position)));
+        holder.med_id_txt.setText(String.valueOf("ID: " + med_id.get(position)));
         holder.med_title_txt.setText(String.valueOf(med_title.get(position)));
-        holder.med_doctor_txt.setText(String.valueOf(med_doctor.get(position)));
+        holder.med_doctor_txt.setText(String.valueOf("Doctor: " + med_doctor.get(position)));
         holder.med_cant_txt.setText(String.valueOf(med_cant.get(position)));
+        holder.med_type_txt.setText(String.valueOf("Tipo: " + med_type.get(position)));
         //Recyclerview onClickListener
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +60,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 intent.putExtra("title", String.valueOf(med_title.get(position)));
                 intent.putExtra("doctor", String.valueOf(med_doctor.get(position)));
                 intent.putExtra("cant", String.valueOf(med_cant.get(position)));
+                intent.putExtra("type", String.valueOf(med_type.get(position)));
                 activity.startActivityForResult(intent, 1);
             }
         });
@@ -72,7 +75,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView med_id_txt, med_title_txt, med_doctor_txt, med_cant_txt;
+        TextView med_id_txt, med_title_txt, med_doctor_txt, med_cant_txt, med_type_txt;
         LinearLayout mainLayout;
 
         MyViewHolder(@NonNull View itemView) {
@@ -81,6 +84,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             med_title_txt = itemView.findViewById(R.id.med_title_txt);
             med_doctor_txt = itemView.findViewById(R.id.med_doctor_txt);
             med_cant_txt = itemView.findViewById(R.id.med_cant_txt);
+            med_type_txt = itemView.findViewById(R.id.med_type_txt);
             mainLayout = itemView.findViewById(R.id.mainLayout);
             //Animate Recyclerview
             Animation translate_anim = AnimationUtils.loadAnimation(context, R.anim.translate_anim);
