@@ -53,7 +53,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.med_doctor_txt.setText(String.valueOf("Doctor: " + med_doctor.get(position)));
         holder.med_cant_txt.setText(String.valueOf(med_cant.get(position)));
         holder.med_type_txt.setText(String.valueOf("Tipo: " + med_type.get(position)));
-        holder.med_hour_txt.setText(String.valueOf("Horario: " + med_hour.get(position)+ ": " + med_min.get(position)));
+        holder.med_hour_txt.setText(String.valueOf("Horario: " + med_hour.get(position)+ ":" + med_min.get(position)));
+
+
         //Recyclerview onClickListener
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
