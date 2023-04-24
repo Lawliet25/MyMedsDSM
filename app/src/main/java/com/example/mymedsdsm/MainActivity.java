@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     TextView no_data;
 
     MyDatabaseHelper myDB;
-    ArrayList<String> med_id, med_title, med_doctor, med_cant;
+    ArrayList<String> med_id, med_title, med_doctor, med_cant, med_type;
     CustomAdapter customAdapter;
 
     @Override
@@ -53,11 +53,12 @@ public class MainActivity extends AppCompatActivity {
         med_title = new ArrayList<>();
         med_doctor = new ArrayList<>();
         med_cant = new ArrayList<>();
+        med_type = new ArrayList<>();
 
         storeDataInArrays();
 
         customAdapter = new CustomAdapter(MainActivity.this,this, med_id, med_title, med_doctor,
-                med_cant);
+                med_cant, med_type);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 med_title.add(cursor.getString(1));
                 med_doctor.add(cursor.getString(2));
                 med_cant.add(cursor.getString(3));
+                med_type.add(cursor.getString(4));
             }
             empty_imageview.setVisibility(View.GONE);
             no_data.setVisibility(View.GONE);

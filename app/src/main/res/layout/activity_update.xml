@@ -30,6 +30,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_input2" />
+    <Spinner
+        android:id="@+id/type_input2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:entries="@array/opciones_med"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doctor_input2"/>
 
     <EditText
         android:id="@+id/cant_input2"
@@ -37,11 +47,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Cantidad de tabletas a tomar"
+        android:hint="Cantidad a ingerir"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/doctor_input2" />
+        app:layout_constraintTop_toBottomOf="@+id/type_input2" />
 
     <Button
         android:id="@+id/update_button"

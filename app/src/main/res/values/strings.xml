@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MyMedsDSM</string>
+    <string-array name="opciones_med">
+        <item>Seleccione el tipo de medicamento</item>
+        <item>Tabletas o cápsulas</item>
+        <item>Bebible</item>
+        <item>Inyectable</item>
+    </string-array>
 </resources>

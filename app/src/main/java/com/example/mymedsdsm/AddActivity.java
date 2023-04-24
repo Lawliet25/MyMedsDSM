@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 public class AddActivity extends AppCompatActivity {
 
     EditText title_input, doctor_input, cant_input;
+    Spinner type_input;
     Button add_button;
 
     @Override
@@ -21,14 +23,17 @@ public class AddActivity extends AppCompatActivity {
         title_input = findViewById(R.id.title_input);
         doctor_input = findViewById(R.id.doctor_input);
         cant_input = findViewById(R.id.cant_input);
+        type_input = findViewById(R.id.type_input);
         add_button = findViewById(R.id.add_button);
+
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MyDatabaseHelper myDB = new MyDatabaseHelper(AddActivity.this);
                 myDB.addMed(title_input.getText().toString().trim(),
                         doctor_input.getText().toString().trim(),
-                        Integer.valueOf(cant_input.getText().toString().trim()));
+                        Integer.valueOf(cant_input.getText().toString().trim()),
+                        type_input.getSelectedItem().toString().trim());
 
                 Intent intent = new Intent(AddActivity.this, MainActivity.class);
                 startActivity(intent);
