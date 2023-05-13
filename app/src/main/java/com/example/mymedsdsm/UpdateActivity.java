@@ -3,9 +3,15 @@ package com.example.mymedsdsm;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +20,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class UpdateActivity extends AppCompatActivity {
 
@@ -62,6 +70,7 @@ public class UpdateActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
                 startActivity(intent);
+                showNotification(view, hour_input.getHour(), hour_input.getMinute(), title_input.getText().toString().trim());
             }
         });
         delete_button.setOnClickListener(new View.OnClickListener() {
@@ -126,5 +135,68 @@ public class UpdateActivity extends AppCompatActivity {
             }
         });
         builder.create().show();
+    }
+    public static long getAlarmDelay(int hour, int minute) {
+        // Obtener la hora actual
+        Calendar now = Calendar.getInstance();
+        int currentHour = now.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = now.get(Calendar.MINUTE);
+
+        Log.d("Delay", "Current hour " + currentHour);
+        Log.d("Delay", "Current minute " + currentMinute);
+
+        // Calcular la diferencia de tiempo en milisegundos
+        long delayMillis = ((hour - currentHour) * 60 + (minute - currentMinute)) * 60 * 1000;
+
+        // Si la hora que recibimos es anterior a la hora actual, sumar un día en milisegundos
+        if (delayMillis < 0) {
+            delayMillis += 24 * 60 * 60 * 1000;
+        }
+
+        Log.d("Delay", "Delay " + delayMillis);
+
+        return delayMillis;
+    }
+
+    public void showNotification(View view, int hour, int minute, String name) {
+        long delay = getAlarmDelay(hour, minute);
+
+        Log.d("Delay", "Delay" + delay);
+        view.postDelayed(new Runnable() {
+            public void run() {
+                UpdateActivity.NotificationHelper notificationHelper = new UpdateActivity.NotificationHelper(UpdateActivity.this);
+                notificationHelper.createNotification("My Meds", "Es hora de tomar tu medicamento: " + name);
+            }
+        }, delay);
+    }
+
+    class NotificationHelper {
+        private Context mContext;
+        private static final int NOTIFICATION_ID = 0;
+        private static final String PRIMARY_CHANNEL_ID = "primary_notification_channel";
+        private NotificationManager mNotificationManager;
+
+        public NotificationHelper(Context context) {
+            mContext = context;
+            mNotificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        }
+
+        public void createNotification(String title, String message) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel notificationChannel = new NotificationChannel(PRIMARY_CHANNEL_ID, "My Meds", NotificationManager.IMPORTANCE_HIGH);
+                notificationChannel.enableLights(true);
+                notificationChannel.setLightColor(Color.RED);
+                notificationChannel.enableVibration(true);
+                notificationChannel.setDescription("Notificación de My Meds");
+                mNotificationManager.createNotificationChannel(notificationChannel);
+            }
+
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(mContext, PRIMARY_CHANNEL_ID)
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setSmallIcon(R.mipmap.ic_launcher);
+
+            mNotificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
+        }
     }
 }
